@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> movie Show </title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+</head>
+<style>
+
+    .entitlements-list-items{
+      margin-bottom: 30px;
+      padding:20px;
+      margin-top: 30px;
+    }
+    .page-heading{
+      padding-bottom: 5px; color:#007bff;
+      font-size: 20px;
+    }
+    .page-info{
+      height: 50px;
+      padding: 10px;
+      background: #fff;
+      box-shadow: 1px 1px 1px #eee;
+    }
+
+
+
+</style>
+<body>
+
+{%extends 'base.html'%}
+
+{% block content %}
+
+<div class="container-wrap">
+    <div class="page-info">
+        <h2 class="page-heading"> Movies </h2>
+    </div>
+
+
+    <form action="/movie/details" method="POST">
+        {% csrf_token %}
+        <table class="table table-striped table-advance table-hover">
+            <tbody>
+            <tr>
+                <td><h5> Search By </h5></td>
+                <td>
+                    <select name="search_by" class="form-control" id="search_by">
+                        {% if search_by == "name" %}
+                        <option value="name" selected="selected">Movie Name</option>
+                        {% else %}
+                        <option value="name">Movie Name</option>
+                        {% endif %}
+                        {% if search_by == "director" %}
+                        <option value="director" selected="selected">Movie Director</option>
+                        {% else %}
+                        <option value="director">Movie Director</option>
+                        {% endif %}
+                        {% if search_by == "popularity" %}
+                        <option value="popularity" selected="selected">Popularity</option>
+                        {% else %}
+                        <option value="popularity">Popularity</option>
+                        {% endif %}
+                        {% if search_by == "popularity__gte" %}
+                        <option value="popularity__gte" selected="selected">Popularity Greater Than</option>
+                        {% else %}
+                        <option value="popularity__gte">Popularity Greater Than</option>
+                        {% endif %}
+                        {% if search_by == "popularity__lte" %}
+                        <option value="popularity__lte" selected="selected">Popularity Lesser Than</option>
+                        {% else %}
+                        <option value="popularity__lte">Popularity Lesser Than</option>
+                        {% endif %}
+                        {% if search_by == "imdb_score" %}
+                        <option value="imdb_score" selected="selected">IMDB Score</option>
+                        {% else %}
+                        <option value="imdb_score">IMDB Score</option>
+                        {% endif %}
+                        {% if search_by == "imdb_score__gte" %}
+                        <option value="imdb_score__gte" selected="selected">IMDB Score Greater Than</option>
+                        {% else %}
+                        <option value="imdb_score__gte">IMDB Score Greater Than</option>
+                        {% endif %}
+                        {% if search_by == "imdb_score__lte" %}
+                        <option value="imdb_score__lte" selected="selected">IMDB Score Lesser Than</option>
+                        {% else %}
+                        <option value="imdb_score__lte">IMDB Score Lesser Than</option>
+                        {% endif %}
+                        {% if search_by == "genre" %}
+                        <option value="genre" selected="selected">Genre</option>
+                        {% else %}
+                        <option value="genre">Genre</option>
+                        {% endif %}
+                    </select>
+                </td>
+                <td>
+                    {% if search_text is None %}
+                    <input type="text" class="form-control" id="search_text" name="search_text" placeholder="Search..."
+                           required>
+                    {% else %}
+                    <input type="text" class="form-control" id="search_text" name="search_text" value={{search_text}}
+                           required>
+                    {% endif %}
+
+                </td>
+                <td>
+                    <button type="submit" class="btn btn-success">SUBMIT</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+
+
+    <div class="table-responsive entitlements-list-items text-center">
+        <table class="table table-hover table-striped">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Director</th>
+                <th>Popularity</th>
+                <th>IMDB Score</th>
+                <th>Genre</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for movie in movies %}
+
+            <tr>
+                <td width="30%">{{ movie.name }}</td>
+                <td width="20%">{{ movie.director }}</td>
+                <td width="10%">{{ movie.popularity }}</td>
+                <td width="10%">{{ movie.imdb_score }}</td>
+                <td width="30%">{{ movie.genre }}</td>
+            </tr>
+
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+
+
+    {% if movies.has_other_pages %}
+    <ul class="pagination">
+        {% if movies.has_previous %}
+        <li>
+            <a href="?page={{movies.previous_page_number}}&search_by={{search_by}}&search_text={{search_text}}">&laquo;</a>
+        </li>
+        {% else %}
+        <li class="disabled"><span>&laquo;</span></li>
+        {% endif %}
+        {% for i in movies.paginator.page_range %}
+        {% if movies.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+        {% else %}
+        <li><a href="?page={{i}}&search_by={{search_by}}&search_text={{search_text}}">{{ i }}</a></li>
+        {% endif %}
+        {% endfor %}
+        {% if movies.has_next %}
+        <li><a href="?page={{movies.next_page_number}}&search_by={{search_by}}&search_text={{search_text}}">&raquo;</a>
+        </li>
+        {% else %}
+        <li class="disabled"><span>&raquo;</span></li>
+        {% endif %}
+    </ul>
+    {% endif %}
+
+
+</div>
+
+{% endblock %}
+
+</body>
+</html>

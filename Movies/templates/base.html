@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+    body {
+      font-family: "Lato", sans-serif;
+    }
+
+    .header{
+      height: 80px;
+      background: fff;
+      box-shadow: 1px 1px 1px #d3d3d3;
+      display: flex;
+      align-items: center;
+    }
+
+    .brand-logo{
+      vertical-align: middle;
+      font-size: 20px;
+      margin-left: 10px;
+
+    }
+
+    .brand-logo img{
+      width:120px;
+    }
+
+    .table td{
+      font-size: 14px;
+    }
+
+    .content-wrap{
+      display: flex;
+    }
+
+    .sidenav {
+      width: 200px;
+      padding-top: 20px;
+      background-color: #fff;
+      height: 100vh;
+      box-shadow: 1px 1px 1px #d3d3d3;
+    }
+
+
+
+    /* Main content */
+    .products-block {
+      width: 100%;
+      background-color: #f8fcff;
+      margin: 1px;
+    }
+
+    .btn{
+      color: #fff;
+      border-radius: 3px;
+      /* padding: 5px 20px; */
+      height: 30px;
+      font-size: 12px;
+    }
+
+    /* Some media queries for responsiveness */
+
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 8px;
+      /*width: 200px;*/
+      /*background-color: #f1f1f1;*/
+    }
+
+    li a {
+      display: block;
+      color: #696969;
+      padding: 12px 24px;
+      text-decoration: none;
+      font-size: 16px;
+    }
+
+  li:hover a{
+    text-decoration: none;
+    color: Blue;
+  }
+
+  .table td{
+    font-size: 14px;
+  }
+
+
+
+
+    </style>
+</head>
+<body>
+
+<div class="content-wrap">
+
+    <div class="main products-block">
+
+        {%block content%}
+        {%endblock%}
+
+    </div>
+</div>
+
+</body>

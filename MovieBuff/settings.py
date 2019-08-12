@@ -73,15 +73,14 @@ WSGI_APPLICATION = 'MovieBuff.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'movie_buff',
-        'USER': 'preetamb',
-        'PASSWORD': 'preetamb',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': os.environ.get('DATABASES_NAME'),
+        'USER': os.environ.get('DATABASES_USER'),
+        'PASSWORD': os.environ.get('DATABASES_PASSWORD'),
+        'HOST': os.environ.get('DATABASES_HOST'),
+        'PORT': os.environ.get('DATABASES_PORT'),
     }
 }
 
@@ -123,7 +122,7 @@ USE_TZ = True
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://redis:6379',
+        'LOCATION': os.environ.get('REDIS_URL'),
         'OPTIONS': {
             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
         }

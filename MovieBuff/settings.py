@@ -132,12 +132,13 @@ CACHES = {
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+# STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "MovieBuff/static"),
-]
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, "MovieBuff/static"),
+# ]
 
+# Configurations for Redis and Celery Worker (not currently used)
 CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
 CELERY_RESULT_BACKEND = 'redis://redis:6379'
 CELERY_ACCEPT_CONTENT = ['application/json']

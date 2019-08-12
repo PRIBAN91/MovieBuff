@@ -1,6 +1,7 @@
 from imdb import data
 from Movies.models import MovieDetails
 from Utility.retry_decorator import retry
+# from Utility.trie_autocomplete import add_word
 
 
 @retry(Exception)
@@ -10,6 +11,7 @@ def load_movie_details():
     for d in data:
         try:
             MovieDetails.objects.get(name=d['name'])
+            # add_word(d['name']) TODO
         except Exception:
             movie = MovieDetails()
             movie.popularity = d['99popularity']

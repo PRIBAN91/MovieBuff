@@ -6,6 +6,7 @@ r = redis.Redis(db=4)
 
 
 def add_word(word):
+    """This is to be loaded during initial dump and CRUD operations"""
     key = PREFIX + ':'
     pipeline = r.pipeline(True)
     for c in word:
@@ -16,6 +17,7 @@ def add_word(word):
 
 
 def suggest(text):
+    """this is for typeahead/autocomplete feature in search. Yet to be implemented."""
     for c in r.zrange(PREFIX + ":" + text, 0, -1):
         if c == TERMINAL:
             yield text

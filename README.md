@@ -13,4 +13,5 @@ Movie Information from IMDB
 
 ## Yet To Be Implemented
 1. Typeahead or Autocomplete feature using Redis cache and Trie data structure.
-2. Scaling either through Horizontal Serverless architecture using AWS Fargate or Vertical Scaling through ALB/ELB from AWS.
+2. Pagination using Ranking on Movie ids.
+3. Scaling either through Horizontal Serverless architecture using AWS Fargate or Vertical Scaling through ALB/ELB from AWS.

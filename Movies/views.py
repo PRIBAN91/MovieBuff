@@ -13,7 +13,7 @@ def show(request):
     if key and value:
         movie_details = search_by(key, value)
     else:
-        movie_details = MovieDetails.objects.all()
+        movie_details = MovieDetails.objects.all()  # TODO: Pagination using Ranking
     return pagination_handler(request, movie_details, key, value)
 
 

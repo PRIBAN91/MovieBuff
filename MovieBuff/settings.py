@@ -131,11 +131,11 @@ CACHES = {
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
-
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "Movies/static"),
-]
+# STATIC_ROOT = os.path.join(BASE_DIR, "static")
+#
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, "Movies/static"),
+# ]
 
 CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
 CELERY_RESULT_BACKEND = 'redis://redis:6379'

@@ -18,7 +18,7 @@ from django.urls import path
 from django.contrib import admin
 import ScheduledTasks.load_data as task
 
-# task.load_movie_details()
+task.load_movie_details()
 
 urlpatterns = [
     path('admin/', admin.site.urls),

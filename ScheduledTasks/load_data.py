@@ -5,11 +5,12 @@ from Utility.retry_decorator import retry
 
 @retry(Exception)
 def load_movie_details():
+    """Method for initial load of data dump provided"""
     print("Starting initial load.")
     for d in data:
         try:
             MovieDetails.objects.get(name=d['name'])
-        except Exception as ex:
+        except Exception:
             movie = MovieDetails()
             movie.popularity = d['99popularity']
             movie.director = d['director']

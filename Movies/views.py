@@ -7,6 +7,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 @csrf_exempt
 def show(request):
+    """Endpoint for movie details and search"""
     key, value = request.POST.get("search_by", request.GET.get("search_by", None)), \
                  request.POST.get("search_text", request.GET.get("search_text", None))
     if key and value:
@@ -17,6 +18,7 @@ def show(request):
 
 
 def pagination_handler(request, movie_details, key, value):
+    """Method for handling Pagination using Django Paginator"""
     page = request.GET.get('page', 1)
     paginator = Paginator(movie_details, 25)
     try:
